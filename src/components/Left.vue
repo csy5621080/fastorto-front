@@ -8,10 +8,9 @@
             <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span slot="title">导航</span>
-
                 <el-menu-item-group>
                     <template v-for="(item,i) in menu">
-                        <el-menu-item :index="item.index" :key="i">{{item.name}}</el-menu-item>
+                        <el-menu-item :index="item.index" :key="i">{{item.show_name}}</el-menu-item>
                     </template>
                 </el-menu-item-group>
             </template>
@@ -34,10 +33,12 @@
                     {
                         name: 'form',
                         index: '1',
+                        show_name: '表单'
                     },
                     {
-                        name: 'form2',
+                        name: 'editor',
                         index: '2',
+                        show_name: '新建'
                     }
                 ]
             };
@@ -47,7 +48,12 @@
                 switch (key) {
                     case '1':
                         if (this.$route.name !== 'Form') {
-                            this.$router.push({name: 'Form'})
+                            this.$router.push({name: 'List'})
+                        }
+                        break;
+                    case '2':
+                        if (this.$route.name !== 'Editor') {
+                            this.$router.push({name: 'Editor'})
                         }
                         break;
                     default:

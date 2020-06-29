@@ -1,59 +1,44 @@
 .home {
   height: 100%;
 
-
   .el-container {
     height: 100%;
 
-    &:nth-child(5) .el-aside,
-    &:nth-child(6) .el-aside {
-      line-height: 260px;
+    .el-header {
+      color: #fff;
+      background-color: #2c3e50;
     }
 
-    &:nth-child(7) .el-aside {
-      line-height: 320px;
-    }
+    .el-container {
 
-    .el-header, .el-footer {
-      background-color: #B3C0D1;
-      color: #333;
-      text-align: center;
-      height: 60px;
-      line-height: 60px;
-    }
+      .el-aside {
+        background-color: beige;
 
-    .el-main {
-      background-color: #E9EEF3;
-      color: #333;
-      text-align: left;
-      padding: 0;
-      height: calc(100vh - 60px * 2);
-      position: relative;
+        .el-menu {
+          height: 100%;
+        }
+      }
 
-      .el-menu {
-        height: 100%;
-        position: absolute;
+      // 内容区
+      .el-main {
 
-        .el-submenu {
-          min-width: 0;
-
-          .el-menu-item-group {
-
-            .el-menu-item {
-              min-width: 0;
-            }
-          }
-
+        > * {
+          min-width: 1000px;
+          overflow-x: auto;
         }
 
+        // editor page
+        #editor_view {
+          width: 70%;
+        }
       }
+    }
 
-      .right {
-        position: absolute;
-        left: 200px;
-        padding: 30px;
-      }
 
+    .el-footer {
+      color: #fff;
+      background-color: #2c3e50;
     }
   }
+
 }

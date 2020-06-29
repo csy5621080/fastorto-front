@@ -4,18 +4,33 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const Home = () => import('../views/Home.vue')
-const Form = () => import('../views/Form_view.vue')
+const HomeIndex = () => import('../views/home/Index.vue')
+const List = () => import('../views/home/ListView.vue')
+const Editor = () => import('../views/home/EditorView.vue')
 
 const routes = [
     {
         path: '/',
         name: 'Home',
         component: Home,
+        redirect: {
+            name: 'HomeIndex'
+        },
         children: [
             {
-                path: '/form',
-                name: 'Form',
-                component: Form
+                path: 'home',
+                name: 'HomeIndex',
+                component: HomeIndex
+            },
+            {
+                path: 'list',
+                name: 'List',
+                component: List
+            },
+            {
+                path: 'editor',
+                name: 'Editor',
+                component: Editor
             }
         ]
     }

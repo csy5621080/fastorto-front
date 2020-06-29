@@ -1,17 +1,32 @@
 <template>
     <div class="home">
-        <HomeComponent/>
+        <el-container>
+            <el-header>Header</el-header>
+
+            <el-container>
+                <el-aside >
+                    <Left></Left>
+                </el-aside>
+
+                <el-main>
+                    <router-view>
+                    </router-view>
+                </el-main>
+            </el-container>
+
+            <el-footer>footer</el-footer>
+        </el-container>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
-    import HomeComponent from '@/components/HomeComponent.vue'
+    import Left from '@/components/Left.vue'
 
     export default {
         name: 'Home',
         components: {
-            HomeComponent
+            Left
         },
         data() {
             return {
@@ -21,10 +36,9 @@
         mounted() {
             this.axios({
                 method: 'get',
-                url: 'https://api.coindesk.com/v1/bpi/currentprice.json'
+                url: '/user/users/'
             }).then(response => {
                 console.log(response.data)
-                // this.title = response.data
             })
         }
     }
