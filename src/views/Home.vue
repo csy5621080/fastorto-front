@@ -38,7 +38,6 @@
                 method: 'get',
                 url: '/user/users/'
             }).then(response => {
-                console.log(response.data)
             })
         }
     }

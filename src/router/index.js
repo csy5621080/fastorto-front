@@ -31,6 +31,11 @@ const routes = [
                 path: 'editor',
                 name: 'Editor',
                 component: Editor
+            },
+            {
+                path: 'detail/:id',
+                name: 'Detail',
+                component: Editor
             }
         ]
     }

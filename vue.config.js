@@ -12,6 +12,11 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: {'^/tags': ''}
             },
+            '/article': {
+                target: 'http://0.0.0.0:8090/article/',
+                changeOrigin: true,
+                pathRewrite: {'^/article': ''}
+            },
         }
     }
 }
