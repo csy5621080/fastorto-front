@@ -77,7 +77,7 @@
             refreshTable() {
                 this.axios({
                     method: 'get',
-                    url: '/article/list/1',
+                    url: '/article/admin/list/1',
                 }).then(response => {
                     this.tableData = response.data.res
                 })

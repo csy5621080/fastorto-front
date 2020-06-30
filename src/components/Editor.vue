@@ -1,10 +1,10 @@
 <template>
     <div class="editor">
-        <div ref="editor"></div>
+        <div ref="editor" style="text-align:left" v-show="editorContent"></div>
 
         <el-form ref="form" :model="form" label-width="80px" class="form">
             <el-form-item label="标题">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.title"></el-input>
             </el-form-item>
 
             <el-form-item label="标签">
@@ -63,25 +63,43 @@
                     label: '北京烤鸭'
                 }],
                 form: {
+                    title: '',
                     value: []
-                }
+                },
+                editorContent: ''
             }
-        }
-        ,
+        },
         methods: {
             onSubmit() {
                 console.log('submit!');
+            },
+            loadArticle() {
+                if (this.$route.params.id) {
+                    console.log('111111111111111111111111111111111111')
+                    this.axios({
+                        method: 'get',
+                        url: '/article/admin/detail/' + this.$route.params.id,
+                    }).then(response => {
+                        this.editorContent = response.data.body;
+                        this.editor.txt.html(this.editorContent);
+                        this.form.title = response.data.title;
+                    })
+                }else {
+                    console.log('222222222222222222222222222222222222222')
+                    this.editor.txt.html('')
+                }
+
             }
         }
         ,
         mounted() {
-            var editor = new E(this.$refs.editor)
-            editor.customConfig.showLinkImg = false;
-            editor.customConfig.uploadImgServer = '/upload_img/';
-            editor.customConfig.uploadImgHeaders = {'Accept': 'application/json'};
-            editor.customConfig.uploadFileName = 'file';
+            this.editor = new E(this.$refs.editor);
+            this.editor.customConfig.showLinkImg = false;
+            this.editor.customConfig.uploadImgServer = '/upload_img/';
+            this.editor.customConfig.uploadImgHeaders = {'Accept': 'application/json'};
+            this.editor.customConfig.uploadFileName = 'file';
             // 自定义配置颜色（字体颜色、背景色）
-            editor.customConfig.colors = [
+            this.editor.customConfig.colors = [
                 '#000000',
                 '#eeece0',
                 '#1c487f',
@@ -94,13 +112,14 @@
                 '#ffffff'
             ];
             var save_path = '';
-            editor.customConfig.uploadImgHooks = {
+            this.editor.customConfig.uploadImgHooks = {
                 success: function (xhr, editor, result) {
                     save_path = result.data[0]
                 }
             };
-            editor.create();
-            editor.$textContainerElem.css('height', 'calc(100vh - 190px - 300px) !important');
+            this.editor.create();
+            this.editor.$textContainerElem.css('height', 'calc(100vh - 190px - 300px) !important');
+            this.loadArticle();
         }
     }
 </script>
