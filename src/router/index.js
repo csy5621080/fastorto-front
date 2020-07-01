@@ -28,13 +28,8 @@ const routes = [
                 component: List
             },
             {
-                path: 'editor',
+                path: 'editor/:id',
                 name: 'Editor',
-                component: Editor
-            },
-            {
-                path: 'detail/:id',
-                name: 'Detail',
                 component: Editor
             }
         ]

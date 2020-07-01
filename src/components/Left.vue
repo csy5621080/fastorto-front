@@ -43,17 +43,19 @@
                 ]
             };
         },
+        inject: ['reload'], // 注入reload方法
         methods: {
             handleSelect(key, keyPath) {
                 switch (key) {
                     case '1':
-                        if (this.$route.name !== 'Form') {
+                        if (this.$route.path.indexOf('/list') === -1) {
                             this.$router.push({name: 'List'})
                         }
                         break;
                     case '2':
-                        if (this.$route.name !== 'Editor') {
-                            this.$router.push({name: 'Editor'})
+                        if (this.$route.path.indexOf('/editor/0') === -1) {
+                            this.$router.push({name: 'Editor', params: {id: 0}})
+                            this.reload()
                         }
                         break;
                     default:

@@ -1,6 +1,6 @@
 <template>
     <div class="editor">
-        <div ref="editor" style="text-align:left" v-show="editorContent"></div>
+        <div ref="editor" style="text-align:left"></div>
 
         <el-form ref="form" :model="form" label-width="80px" class="form">
             <el-form-item label="标题">
@@ -23,13 +23,13 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="">
-                <el-radio-group v-model="form.resource">
+                <el-radio-group v-model="form.is_public">
                     <el-radio label="私密"></el-radio>
                     <el-radio label="公开"></el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="摘要">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <el-input type="textarea" v-model="form.summ"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -64,29 +64,35 @@
                 }],
                 form: {
                     title: '',
+                    is_public: '',
+                    summ: '',
                     value: []
-                },
-                editorContent: ''
+                }
             }
         },
         methods: {
             onSubmit() {
-                console.log('submit!');
+                this.axios.post('/article/push', {
+                    title: this.form.title,
+                    is_public: this.form.is_public,
+                    summary: this.form.summary
+
+                }).then(response => {
+                    this.editor.txt.html(response.data.body);
+                    this.form.title = response.data.title;
+                })
             },
             loadArticle() {
-                if (this.$route.params.id) {
-                    console.log('111111111111111111111111111111111111')
+                if (parseInt(this.$route.params.id)) {
                     this.axios({
                         method: 'get',
                         url: '/article/admin/detail/' + this.$route.params.id,
                     }).then(response => {
-                        this.editorContent = response.data.body;
-                        this.editor.txt.html(this.editorContent);
+                        this.editor.txt.html(response.data.body);
                         this.form.title = response.data.title;
                     })
-                }else {
-                    console.log('222222222222222222222222222222222222222')
-                    this.editor.txt.html('')
+                } else {
+                    this.editor.txt.html()
                 }
 
             }

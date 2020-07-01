@@ -4,12 +4,12 @@
             <el-header>Header</el-header>
 
             <el-container>
-                <el-aside >
+                <el-aside>
                     <Left></Left>
                 </el-aside>
 
                 <el-main>
-                    <router-view>
+                    <router-view  v-if="isRouterAlive" >
                     </router-view>
                 </el-main>
             </el-container>
@@ -30,7 +30,14 @@
         },
         data() {
             return {
-                title: '12'
+                title: '12',
+            isRouterAlive: true // 页面刷新
+            }
+        },
+        // 页面刷新
+        provide() {
+            return {
+                reload: this.reload
             }
         },
         mounted() {
@@ -39,6 +46,16 @@
                 url: '/user/users/'
             }).then(response => {
             })
+        },
+        methods: {
+            // 页面刷新
+            reload() {
+                this.isRouterAlive = false;
+
+                this.$nextTick(() => {
+                    this.isRouterAlive = true;
+                })
+            }
         }
     }
 </script>

@@ -74,6 +74,9 @@
             this.refreshTable()
         },
         methods: {
+            filterTag(){
+
+            },
             refreshTable() {
                 this.axios({
                     method: 'get',
@@ -86,7 +89,7 @@
                 this.refreshTable({order: params.order, prop: params.prop})
             },
             handleEdit(index, row) {
-                this.$router.push({name: 'Detail', params: {id: row.id}})
+                this.$router.push({name: 'Editor', params: {id: row.id}})
             },
             handleDelete(index, row) {
                 console.log(index, row);
