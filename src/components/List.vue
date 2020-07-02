@@ -15,26 +15,22 @@
                 prop="title"
                 label="标题"
                 sortable
-                width="180"
+                width="240"
         >
         </el-table-column>
         <el-table-column
                 prop="author_name"
                 label="作者"
-                width="180"
+                width="100"
                 sortable>
         </el-table-column>
         <el-table-column
-                prop="tag"
+                prop="article_tag"
                 label="标签"
-                width="100"
-                :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
-                :filter-method="filterTag">
-            <template slot-scope="scope">
-                <el-tag
-                        :type="scope.row.tag === '家' ? 'primary' : 'success'"
-                        disable-transitions> 家
-                </el-tag>
+                width="180"
+        >
+            <template slot-scope="scope" >
+                <el-tag v-for="tag_ in scope.row.article_tag" style="display:inline"> {{tag_.name}} </el-tag>
             </template>
         </el-table-column>
 
@@ -74,7 +70,7 @@
             this.refreshTable()
         },
         methods: {
-            filterTag(){
+            filterTag() {
 
             },
             refreshTable() {
@@ -82,6 +78,7 @@
                     method: 'get',
                     url: '/article/admin/list/1',
                 }).then(response => {
+                    console.log(response.data.res);
                     this.tableData = response.data.res
                 })
             },

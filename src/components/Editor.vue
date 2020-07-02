@@ -60,6 +60,7 @@
         methods: {
             onSubmit() {
                 if (this.$route.params.id > 0) {
+                    console.log(this.form);
                     this.axios.patch('/article/update/' +this.$route.params.id, {
                         title: this.form.title,
                         is_public: this.form.is_public,
@@ -67,8 +68,8 @@
                         tags: this.form.value,
                         body: this.editor.txt.html()
                     }).then(response => {
-                        const query = {name: 'Editor', params: {id: response.data.id}}
-                        this.$router.push(query)
+                        // const query = {name: 'Editor', params: {id: response.data.id}}
+                        // this.$router.push(query)
                     })
                 } else {
                     this.axios.post('/article/push', {
@@ -78,8 +79,9 @@
                         tags: this.form.value,
                         body: this.editor.txt.html()
                     }).then(response => {
-                        const query = {name: 'Editor', params: {id: response.data.id}}
-                        this.$router.push(query)
+                        console.log(this.form);
+                        // const query = {name: 'Editor', params: {id: response.data.id}}
+                        // this.$router.push(query)
                     })
                 }
             },
@@ -93,9 +95,7 @@
                         this.form.title = response.data.title;
                         this.form.is_public = response.data.is_public;
                         this.form.summ = response.data.summary;
-                        this.form.value = response.data.article_tag;
-                        console.log(response.data)
-                        console.log(this.form.value)
+                        this.form.value = response.data.article_tag_ids;
                     })
                 } else {
                     this.editor.txt.html()
