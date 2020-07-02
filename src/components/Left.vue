@@ -39,6 +39,11 @@
                         name: 'editor',
                         index: '2',
                         show_name: '新建'
+                    },
+                    {
+                        name: 'tags',
+                        index: '3',
+                        show_name: '标签'
                     }
                 ]
             };
@@ -55,6 +60,12 @@
                     case '2':
                         if (this.$route.path.indexOf('/editor/0') === -1) {
                             this.$router.push({name: 'Editor', params: {id: 0}})
+                            this.reload()
+                        }
+                        break;
+                    case '3':
+                        if (this.$route.path.indexOf('/tags') === -1) {
+                            this.$router.push({name: 'Tags'})
                             this.reload()
                         }
                         break;

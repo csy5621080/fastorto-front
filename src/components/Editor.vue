@@ -16,16 +16,16 @@
                         placeholder="请选择">
                     <el-option
                             v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="">
                 <el-radio-group v-model="form.is_public">
-                    <el-radio label="私密"></el-radio>
-                    <el-radio label="公开"></el-radio>
+                    <el-radio :label="false">私密</el-radio>
+                    <el-radio :label="true">公开</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="摘要">
@@ -46,41 +46,42 @@
         name: 'Editor',
         data() {
             return {
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                options: [],
                 form: {
                     title: '',
                     is_public: '',
                     summ: '',
                     value: []
-                }
+                },
+                info: ''
             }
         },
+        inject: ['reload'], // 注入reload方法
         methods: {
             onSubmit() {
-                this.axios.post('/article/push', {
-                    title: this.form.title,
-                    is_public: this.form.is_public,
-                    summary: this.form.summary
-
-                }).then(response => {
-                    this.editor.txt.html(response.data.body);
-                    this.form.title = response.data.title;
-                })
+                if (this.$route.params.id > 0) {
+                    this.axios.patch('/article/update/' +this.$route.params.id, {
+                        title: this.form.title,
+                        is_public: this.form.is_public,
+                        summary: this.form.summ,
+                        tags: this.form.value,
+                        body: this.editor.txt.html()
+                    }).then(response => {
+                        const query = {name: 'Editor', params: {id: response.data.id}}
+                        this.$router.push(query)
+                    })
+                } else {
+                    this.axios.post('/article/push', {
+                        title: this.form.title,
+                        is_public: this.form.is_public,
+                        summary: this.form.summ,
+                        tags: this.form.value,
+                        body: this.editor.txt.html()
+                    }).then(response => {
+                        const query = {name: 'Editor', params: {id: response.data.id}}
+                        this.$router.push(query)
+                    })
+                }
             },
             loadArticle() {
                 if (parseInt(this.$route.params.id)) {
@@ -90,18 +91,31 @@
                     }).then(response => {
                         this.editor.txt.html(response.data.body);
                         this.form.title = response.data.title;
+                        this.form.is_public = response.data.is_public;
+                        this.form.summ = response.data.summary;
+                        this.form.value = response.data.article_tag;
+                        console.log(response.data)
+                        console.log(this.form.value)
                     })
                 } else {
                     this.editor.txt.html()
                 }
 
+            },
+            loadTags() {
+                this.axios({
+                    method: 'get',
+                    url: '/tags/list',
+                }).then(response => {
+                    this.options = response.data
+                })
             }
         }
         ,
         mounted() {
             this.editor = new E(this.$refs.editor);
             this.editor.customConfig.showLinkImg = false;
-            this.editor.customConfig.uploadImgServer = '/upload_img/';
+            this.editor.customConfig.uploadImgServer = '/article/upload_img/';
             this.editor.customConfig.uploadImgHeaders = {'Accept': 'application/json'};
             this.editor.customConfig.uploadFileName = 'file';
             // 自定义配置颜色（字体颜色、背景色）
@@ -123,8 +137,13 @@
                     save_path = result.data[0]
                 }
             };
+            this.editor.customConfig.onchange = (html) => {
+                this.info_ = html // 绑定当前逐渐地值
+                this.$emit('change', this.info) // 将内容同步到父组件中
+            }
             this.editor.create();
             this.editor.$textContainerElem.css('height', 'calc(100vh - 190px - 300px) !important');
+            this.loadTags();
             this.loadArticle();
         }
     }

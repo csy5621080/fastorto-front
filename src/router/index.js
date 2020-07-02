@@ -7,6 +7,7 @@ const Home = () => import('../views/Home.vue')
 const HomeIndex = () => import('../views/home/Index.vue')
 const List = () => import('../views/home/ListView.vue')
 const Editor = () => import('../views/home/EditorView.vue')
+const Tags = () => import('../views/home/TagsView.vue')
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
                 path: 'editor/:id',
                 name: 'Editor',
                 component: Editor
+            },
+            {
+                path: 'tags',
+                name: 'Tags',
+                component: Tags
             }
         ]
     }
