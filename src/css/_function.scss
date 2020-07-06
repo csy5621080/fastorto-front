@@ -1,0 +1,128 @@
+// 自动添加浏览器前缀的mixin
+@mixin prefixer($property, $value, $prefixes: webkit moz ms) {
+    #{$property}: $value;
+
+    @each $prefix in $prefixes {
+        @if $prefix==webkit {
+            -webkit-#{$property}: #{$value};
+        } @else if $prefix==moz {
+            -moz-#{$property}: #{$value};
+        } @else if $prefix==o {
+            -o-#{$property}: #{$value};
+        } @else if $prefix==ms {
+            -ms-#{$property}: #{$value};
+        }
+    }
+}
+
+// 自动添加浏览器前缀的mixin(给value添加)
+@mixin prefixerValue($property, $value, $prefixes: webkit moz ms) {
+    #{$property}: $value;
+
+    @each $prefix in $prefixes {
+        @if $prefix==webkit {
+            #{$property}: -webkit-#{$value};
+        } @else if $prefix==moz {
+            #{$property}: -moz-#{$value};
+        } @else if $prefix==o {
+            #{$property}: -o-#{$value};
+        } @else if $prefix==ms {
+            #{$property}: -ms-#{$value};
+        }
+    }
+}
+
+// 用于替代map-get 项目颜色
+@function commonColor($key) {
+    @if map-has-key($commonColor, $key) {
+        @return map-get($commonColor, $key);
+    }
+
+    @warn "Unknown `#{$key}` in $commonColor.";
+    @return null;
+}
+
+// 主题化的mixin
+@mixin themify($themes: $themes) {
+    @each $theme-name, $map in $themes {
+        .theme-#{$theme-name} & {
+            $theme-map: () !global;
+            @each $key, $value in $map {
+                $theme-map: map-merge(
+                    $theme-map,
+                    (
+                        $key: $value
+                    )
+                ) !global;
+            }
+
+            @content;
+
+            $theme-map: null !global;
+        }
+    }
+}
+
+// themed函数
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
+// hsla 颜色
+@function hslaColor($h, $s, $l, $a) {
+    @return hsla($h, $s, $l, $a);
+}
+
+// hide动画
+@keyframes hide {
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes hide {
+    to {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes hide {
+    to {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes hide {
+    to {
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes hide {
+    to {
+        opacity: 0;
+    }
+}
+
+// 横向列表竖线分隔
+@mixin addListSeparator($height, $spacing, $color) {
+    &:not(:last-child) {
+        position: relative;
+        padding-right: $spacing;
+
+        &:after {
+            content: '';
+            position: absolute;
+            right: 0px;
+            top: calc((100% - #{$height}) / 2);
+            height: $height;
+            border-right-width: 1px;
+            border-right-style: solid;
+            border-right-color: $color;
+        }
+    }
+
+    &:not(:first-child) {
+        padding-left: $spacing;
+    }
+}

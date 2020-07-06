@@ -1,0 +1,66 @@
+#home_dashboard {
+  height: 100%;
+  overflow: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  background-color: $dashboardContentBg;
+
+  > * {
+    margin: 0 auto;
+  }
+
+  #home_dashboard_carousel {
+    width: 80%;
+
+    .el-carousel__item h3 {
+      color: #475669;
+      font-size: 14px;
+      opacity: 0.75;
+      line-height: 200px;
+      margin: 0;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+      background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+      background-color: #d3dce6;
+    }
+
+  }
+
+  #home_dashboard_content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    width: $dashboardContentWidth;
+    min-width: $dashboardContentMinWidth;
+
+    .card {
+      width: $dashboardContentCardWidth;
+      margin: 0 auto;
+
+      .el-card__header {
+        @extend .clearfix;
+        line-height: 20px;
+
+        .card_name {
+          float: left;
+        }
+
+
+        .card_btn {
+          padding: 0px;
+          float: right;
+        }
+      }
+
+      .el-card__body {
+        line-height: 20px;
+      }
+    }
+  }
+
+}

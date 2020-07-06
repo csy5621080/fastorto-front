@@ -1,37 +1,40 @@
 <template>
-    <div class="home">
-        <el-container>
-            <el-header>Header</el-header>
+    <div id="home">
+        <el-header id="home_header">
+            <div class="menu">
+                <template v-for="(item,i) in menu">
+                    <div class="menu_item" @click="linkToMenu(item.name)">{{item.show_name}}</div>
+                </template>
+            </div>
+        </el-header>
 
-            <el-container>
-                <el-aside>
-                    <Left></Left>
-                </el-aside>
+        <div id="home_content">
+            <router-view v-if="isRouterAlive"></router-view>
+        </div>
 
-                <el-main>
-                    <router-view  v-if="isRouterAlive" >
-                    </router-view>
-                </el-main>
-            </el-container>
-
-            <el-footer>footer</el-footer>
-        </el-container>
+        <el-footer id="home_footer">footer</el-footer>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
-    import Left from '@/components/Left.vue'
 
     export default {
         name: 'Home',
-        components: {
-            Left
-        },
         data() {
             return {
+                menu: [
+                    {
+                        name: 'HomeAdmin',
+                        show_name: 'admin'
+                    },
+                    {
+                        name: 'HomeDashboard',
+                        show_name: 'dashboard'
+                    },
+                ],
                 title: '12',
-            isRouterAlive: true // 页面刷新
+                isRouterAlive: true // 页面刷新
             }
         },
         // 页面刷新
@@ -41,13 +44,13 @@
             }
         },
         mounted() {
-            this.axios({
-                method: 'get',
-                url: '/user/users/'
-            }).then(response => {
-            })
         },
         methods: {
+            // 点击菜单
+            linkToMenu(name) {
+                this.$router.push({name: name})
+            },
+
             // 页面刷新
             reload() {
                 this.isRouterAlive = false;

@@ -1,0 +1,29 @@
+#home_admin {
+  height: 100%;
+  width: 100vw;
+  @extend .clearfix;
+
+  #home_admin_menu {
+    height: 100%;
+    float: left;
+    width: $adminMenuWidth;
+    min-width: $adminMenuMinWidth;
+  }
+
+  #home_admin_content {
+    height: calc(100%);
+    width: calc(100% - #{$adminMenuWidth});
+    max-width: calc(100% - #{$adminMenuMinWidth});
+    min-width: $adminContentMinWidth;
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #eee;
+    overflow: auto;
+
+    > * {
+      background-color: $adminContentBg;
+      height: 100%;
+    }
+  }
+}

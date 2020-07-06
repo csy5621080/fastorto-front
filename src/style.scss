@@ -1,7 +1,17 @@
 @import "./css/_constant";
+@import "./css/_function";
+@import "./css/_common";
 @import "./css/_reset";
-@import "./css/view/home";
 
-#app{
+//views
+@import "./css/view/home";
+@import "./css/view/home/admin";
+@import "./css/view/home/dashboard";
+
+//components
+@import "./css/components/left";
+
+
+#app {
   height: 100%;
 }

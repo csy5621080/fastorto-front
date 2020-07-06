@@ -1,5 +1,6 @@
 <template>
     <el-menu
+            class="left"
             @select="handleSelect"
             background-color="#545c64"
             text-color="#fff"
@@ -17,13 +18,6 @@
         </el-submenu>
     </el-menu>
 </template>
-
-<style>
-    .el-menu-vertical-demo:not(.el-menu--collapse) {
-        width: 200px;
-        min-height: 400px;
-    }
-</style>
 
 <script>
     export default {
@@ -54,18 +48,18 @@
                 switch (key) {
                     case '1':
                         if (this.$route.path.indexOf('/list') === -1) {
-                            this.$router.push({name: 'List'})
+                            this.$router.push({name: 'HomeAdminList'})
                         }
                         break;
                     case '2':
                         if (this.$route.path.indexOf('/editor/0') === -1) {
-                            this.$router.push({name: 'Editor', params: {id: 0}})
+                            this.$router.push({name: 'HomeAdminEditor', params: {id: 0}})
                             this.reload()
                         }
                         break;
                     case '3':
                         if (this.$route.path.indexOf('/tags') === -1) {
-                            this.$router.push({name: 'Tags'})
+                            this.$router.push({name: 'HomeAdminTags'})
                             this.reload()
                         }
                         break;

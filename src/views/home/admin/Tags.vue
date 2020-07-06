@@ -1,14 +1,13 @@
 <template>
-    <List></List>
+    <Tags></Tags>
 </template>
 
 <script>
-    import List from "../../components/List";
-
+    import Tags from "../../../components/Tags";
     export default {
-        name: "ListView",
+        name: "TagsView",
         components: {
-            List
+            Tags
         }
     }
 </script>

@@ -1,44 +1,43 @@
-.home {
+#home {
   height: 100%;
 
-  .el-container {
-    height: 100%;
+  #home_header {
+    color: #fff;
+    padding: 20px;
+    height: $headerHeight !important;
+    background-color: $mainBg;
+    box-sizing: border-box;
+    @extend .clearfix;
 
-    .el-header {
-      color: #fff;
-      background-color: #2c3e50;
-    }
+    .menu {
+      float: right;
+      @extend .clearfix;
+      line-height: calc(#{$headerHeight} - 20px * 2);
 
-    .el-container {
 
-      .el-aside {
-        background-color: beige;
+      .menu_item {
+        float: left;
+        cursor: pointer;
+        padding: 0px 20px;
+        color: #fff;
 
-        .el-menu {
-          height: 100%;
-        }
-      }
 
-      // 内容区
-      .el-main {
-
-        > * {
-          min-width: 1000px;
-          overflow-x: auto;
-        }
-
-        // editor page
-        #editor_view {
-          width: 70%;
+        &:hover {
+          color: antiquewhite;
         }
       }
     }
+  }
+
+  #home_content {
+    height: calc(100% - #{$headerHeight} - #{$footerHeight});
+  }
 
 
-    .el-footer {
-      color: #fff;
-      background-color: #2c3e50;
-    }
+  #home_footer {
+    color: #fff;
+    height: $footerHeight !important;
+    background-color: $mainBg;
   }
 
 }
