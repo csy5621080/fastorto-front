@@ -59,6 +59,16 @@
 
       .el-card__body {
         line-height: 20px;
+        padding-bottom: 0px;
+
+        .footer {
+          border-top: 1px solid #EBEEF5;
+          margin-top: 20px;
+          margin-left: -20px;
+          margin-right: -20px;
+          padding: 20px;
+        }
+
       }
     }
   }

@@ -13,8 +13,11 @@
                     <span class="card_name">{{art.title}}</span>
                     <el-button class="card_btn" type="text">查看详情</el-button>
                 </template>
-
                 {{art.summary}}
+
+                <div class="footer">
+                    footer
+                </div>
             </el-card>
         </div>
 

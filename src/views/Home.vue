@@ -12,7 +12,7 @@
             <router-view v-if="isRouterAlive"></router-view>
         </div>
 
-        <el-footer id="home_footer">footer</el-footer>
+        <el-footer id="home_footer"></el-footer>
     </div>
 </template>
 
