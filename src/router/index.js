@@ -9,6 +9,7 @@ const HomeDashboard = () => import('../views/home/Dashboard.vue')
 const HomeAdminList = () => import('../views/home/admin/List.vue')
 const HomeAdminEditor = () => import('../views/home/admin/Editor.vue')
 const HomeAdminTags = () => import('../views/home/admin/Tags.vue')
+const ArticleDetails = () => import('../views/home/ArticleDetails.vue')
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
                 path: 'dashboard',
                 name: 'HomeDashboard',
                 component: HomeDashboard
+            },
+            {
+                path: 'detail',
+                name: 'Detail',
+                component: ArticleDetails
             },
             {
                 path: 'admin',

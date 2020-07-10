@@ -11,12 +11,18 @@
             <el-card class="card">
                 <template slot="header">
                     <span class="card_name">{{art.title}}</span>
-                    <el-button class="card_btn" type="text">查看详情</el-button>
+                    <el-button class="card_btn" type="text" @click="goDetail(art.id)">查看详情</el-button>
                 </template>
                 {{art.summary}}
 
                 <div class="footer">
-                    footer
+                    <el-tag class="card_tag"
+                            v-for="item in art.article_tag"
+                            :key="item.id"
+                            :type="''"
+                            effect="plain">
+                        {{ item.name }}
+                    </el-tag>
                 </div>
             </el-card>
         </div>
@@ -41,7 +47,14 @@
             return {
                 data_list: [],
                 total: 1,
-                pageNumber: 1
+                pageNumber: 1,
+                items: [
+                    {type: '', label: '标签一'},
+                    {type: 'success', label: '标签二'},
+                    {type: 'info', label: '标签三'},
+                    {type: 'danger', label: '标签四'},
+                    {type: 'warning', label: '标签五'}
+                ]
             }
         },
         components: {},
@@ -54,13 +67,15 @@
                     method: 'get',
                     url: '/article/list/' + page_num,
                 }).then(response => {
-                    console.log(response.data.res);
                     this.data_list = response.data.res;
                     this.total = response.data.count;
                 })
             },
             handleCurrentChange(val) {
                 this.getArticles(val)
+            },
+            goDetail(pk) {
+                this.$router.push({name: 'Detail', params: {id: pk}})
             }
         }
     }
