@@ -2,7 +2,14 @@
     <div id="home_dashboard">
         <el-carousel :interval="4000" type="card" id="home_dashboard_carousel">
             <el-carousel-item v-for="item in 3" :key="item">
-                <h3 class="medium">{{ item }}</h3>
+                <el-image
+                        :src="'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594445076278&di=3c8c25031e9e74931fa617750ae604be&imgtype=0&src=http%3A%2F%2Fa0.att.hudong.com%2F56%2F12%2F01300000164151121576126282411.jpg'"
+                        :fit="cover"
+                >
+                </el-image>
+                <!--                <div style="width:100%;position:absolute;z-index:2;top:85%; text-align:left;">-->
+                <!--                    <h2 style="color:#fff">文字浮动在图片上方</h2>-->
+                <!--                </div>-->
             </el-carousel-item>
         </el-carousel>
 
